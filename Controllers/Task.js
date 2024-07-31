@@ -13,11 +13,10 @@ const createTask = async (req, res)=>{
 
 // READ
 const getTask = async (req, res) => {
-    const { userId, status } = req.query;
+    const { userId } = req.query;
     try {
         const tasks = await Task.find({
             user: userId,
-            status: status
         });
         res.status(200).json(tasks);
     } catch (err) {
@@ -27,9 +26,11 @@ const getTask = async (req, res) => {
 
 // DELETE
 const deleteTask = async (req, res) => {
-    const { taskId } = req.params;
+    const {taskId} = req.query;     
+    console.log("taskId is ", taskId);
     try {
         await Task.findByIdAndDelete(taskId);
+        console.log("task deleted", taskId)
         res.status(200).json("Task has been deleted.");
     } catch (err) {
         res.status(500).json(err);

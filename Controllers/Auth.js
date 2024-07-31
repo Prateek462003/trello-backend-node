@@ -20,36 +20,37 @@ const signupController =  async(req, res)=>{
     }
 }
 
-const loginController = async(req, res)=>{
-    try{
-        const user = await User.findOne(
-            {
-                email:req.body.email
-            }
-        );  
-        !user && res.status(401).json("Wrong Email or Password");
-        
+const loginController = async (req, res) => {
+    try {
+        const user = await User.findOne({ email: req.body.email });
+        if (!user) {
+            return res.status(401).json("Wrong Email or Password");
+        }
+
         const requiredPassword = user.password;
         const inputPassword = req.body.password;
-        if(await argon2.verify(requiredPassword, inputPassword)){
-            const accessToken = jwt.sign(
-                {
-                id:user._id,
-                },
-                process.env.JWT_KEY
-            );
-            const {password, ...others} = user._doc;
-            res.cookie("access_token", accessToken,{
-                httpOnly:true
-            }).status(200).json(others);
-            // res.status(201).json(user);
-        }else{
+        if (await argon2.verify(requiredPassword, inputPassword)) {
+            const accessToken = jwt.sign({ id: user._id, username : user.username }, process.env.JWT_KEY);
+
+
+            // res.cookie("access_token", accessToken, {
+            //     httpOnly: true,
+            //     secure : false,
+            //     SameSite: 'None' 
+            // }).status(200).json({ _id: user._id, username: user.username });
+
+            res.status(200).json({ 
+                _id: user._id, 
+                username: user.username,
+                token: accessToken
+            });
+        } else {
             res.status(401).json("Wrong Email or Password");
         }
-    }catch(err){
+    } catch (err) {
         res.status(500).json(err);
     }
-}
+};
 
 const logoutController = async(req, res) => {
     res.clearCookie("access_token").status(200).json("Logged out successfully");

@@ -3,13 +3,13 @@ import {loginController, signupController, logoutController} from "../Controller
 const router = express.Router();
 
 // SignUp
-router.post("/", signupController)
+router.post("/signup", signupController)
 
 // Login
-router.get("/login", loginController)
+router.post("/login", loginController)
 
 // Logout
-router.get("/logout", logoutController)
+router.post("/logout", logoutController)
 
 
 

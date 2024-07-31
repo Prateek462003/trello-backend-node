@@ -8,6 +8,6 @@ router.post("/", verifyToken, createTask)
 
 router.get("/", verifyToken, getTask)
 
-router.delete("/:taskId", verifyToken, deleteTask)
+router.delete("/", verifyToken, deleteTask)
 
 export default router
