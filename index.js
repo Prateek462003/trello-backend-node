@@ -28,6 +28,6 @@ app.use(cors(corsOptions));
 app.use("/api/auth", authRoute);
 app.use("/api/tasks", taskRoute);
 
-app.listen(5000, ()=>{
+app.listen(process.env.PORT || 5000, ()=>{
     console.log("Backend Server Running")
 })
