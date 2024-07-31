@@ -10,10 +10,12 @@ const app = express();
 dotenv.config();
 
 const corsOptions = {
-    origin: "https://trello-frontend-next.vercel.app/",
+    origin: "https://trello-frontend-next.vercel.app", 
     credentials: true,
-};
-
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    allowedHeaders: "Content-Type,Authorization",
+  };
+  
 mongoose
     .connect(process.env.MONGO_URI)
     .then(()=>console.log("Mongo DB Connected"))
