@@ -10,9 +10,9 @@ const app = express();
 dotenv.config();
 
 const corsOptions = {
-    origin: "http://localhost:3000",
+    origin: "https://trello-frontend-next.vercel.app/",
     credentials: true,
-  };
+};
 
 mongoose
     .connect(process.env.MONGO_URI)
