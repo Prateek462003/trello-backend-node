@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post("/", verifyToken, createTask)
 
-router.get("/", verifyToken, getTask)
+router.get("/", getTask)
 
 router.delete("/", verifyToken, deleteTask)
 

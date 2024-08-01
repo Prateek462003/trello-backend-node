@@ -14,7 +14,7 @@ const corsOptions = {
     credentials: true,
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     allowedHeaders: "Content-Type,Authorization",
-  };
+};
   
 mongoose
     .connect(process.env.MONGO_URI)
